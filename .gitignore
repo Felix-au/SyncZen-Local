@@ -1,0 +1,53 @@
+# Hotel Check-In & Data Tracker Gitignore
+
+# 1. Workspace Rules
+/scratch/
+/scratch/*
+
+# 2. Dependency Directories
+node_modules/
+jspm_packages/
+web_modules/
+
+# 3. Build & Target Output Directories
+dist/
+build/
+out/
+bin/
+obj/
+release/
+*.msi
+*.exe
+*.apk
+*.zip
+*.tar.gz
+
+# 4. Embedded Database & Local Assets
+*.db
+*.sqlite
+/db_data/
+/storage/
+/assets/uploads/
+mysql-data/
+maria-data/
+
+# 5. OS & IDE Configuration Files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 6. Log Files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log

@@ -1,0 +1,26 @@
+# Agent Rules - Hotel Check-In & Data Tracker
+
+## 1. Git & Commit Guidelines
+- **Commit Frequency**: Commit after every minor logical change or task phase completion.
+- **Pushing Rules**: Do NOT push commits directly to the remote repository. Leave all pushing operations to the developer.
+- **Commit Messages**: Use descriptive, conventional commit messages. Examples:
+  - `feat(server): ...`
+  - `feat(client): ...`
+  - `fix(server): ...`
+  - `docs(readme): ...`
+
+## 2. Directory & Scratch Guidelines
+- **The Scratch Directory**: All temporary artifacts, implementation plans, task checklists, and logs must be created inside the `/scratch` directory at the project root.
+- **Git Tracking**: Files and folders under `/scratch` must NOT be tracked by git.
+- **Session Changelog**: Any change made to code or documentation during a session must be logged in `/scratch/changelog.md`.
+  - The log must be highly descriptive, summarizing added features, resolved bugs, and modified logic.
+
+## 3. Documentation Standards
+Three core project documents must be maintained and kept updated at the root of the repository:
+1. **`README.md`**: The master repository overview. It must utilize advanced markdown, including rich tables, mermaid flowcharts, architecture diagrams, and ASCII art.
+2. **`guide.md`**: A comprehensive setup and installation guide describing how to run the project from source code, or install the compiled `.exe` and `.apk`.
+3. **`project.md`**: A detailed technical operating guide explaining how the software runs, network configuration parameters, database management, and maintenance tasks.
+
+## 4. Changelog Lifecycle
+- `/scratch/changelog.md` acts as a temporary buffer for current-session changes.
+- All logs in `/scratch/changelog.md` are only to be deleted or cleared once all three main repository documents (`README.md`, `guide.md`, and `project.md`) have been fully updated to reflect the new state of the repository.
