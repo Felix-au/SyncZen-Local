@@ -14,7 +14,24 @@ $DownloadUrl = "https://downloads.mariadb.org/rest-api/mariadb/$Version/$FileNam
 $TempDir    = "$env:TEMP\mariadb-setup"
 $ZipPath    = "$TempDir\$FileName"
 $ExtractDir = "$TempDir\extracted"
-$TargetDir  = "$PSScriptRoot\..\desktop\db-engine\bin"
+# Resolve script directory or fallback gracefully
+$ScriptDir = $PSScriptRoot
+if (-not $ScriptDir) {
+    if ($MyInvocation -and $MyInvocation.MyCommand -and $MyInvocation.MyCommand.Path) {
+        $ScriptDir = Split-Path $MyInvocation.MyCommand.Path -Parent
+    } else {
+        $ScriptDir = $PWD.Path
+    }
+}
+
+# Determine target directory relative to root
+if (Test-Path "$ScriptDir\setup-mariadb.ps1") {
+    $TargetDir = "$ScriptDir\..\desktop\db-engine\bin"
+} elseif (Test-Path "$ScriptDir\scripts\setup-mariadb.ps1") {
+    $TargetDir = "$ScriptDir\desktop\db-engine\bin"
+} else {
+    $TargetDir = "$ScriptDir\desktop\db-engine\bin"
+}
 
 Write-Host "`n[MariaDB Setup] Version: $Version  Arch: $Arch" -ForegroundColor Cyan
 Write-Host "[MariaDB Setup] Target:  $TargetDir`n"
