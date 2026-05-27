@@ -40,9 +40,9 @@ Write-Host ""
 Write-Host "[1/4] Checking Node.js..." -ForegroundColor Yellow
 try {
     $nodeVer = node --version
-    Write-Host "      ✓ Node.js $nodeVer detected" -ForegroundColor Green
+    Write-Host "      [OK] Node.js $nodeVer detected" -ForegroundColor Green
 } catch {
-    Write-Host "      ✗ Node.js not found. Install from https://nodejs.org (LTS)" -ForegroundColor Red
+    Write-Host "      [ERROR] Node.js not found. Install from https://nodejs.org (LTS)" -ForegroundColor Red
     exit 1
 }
 
@@ -50,13 +50,13 @@ try {
 Write-Host "`n[2/4] Installing desktop dependencies..." -ForegroundColor Yellow
 Set-Location "$Root\desktop"
 npm install
-Write-Host "      ✓ Desktop node_modules installed" -ForegroundColor Green
+Write-Host "      [OK] Desktop node_modules installed" -ForegroundColor Green
 
 # ── 3. Install Mobile dependencies ──────────────────────────────────────────
 Write-Host "`n[3/4] Installing mobile dependencies..." -ForegroundColor Yellow
 Set-Location "$Root\mobile"
 npm install
-Write-Host "      ✓ Mobile node_modules installed" -ForegroundColor Green
+Write-Host "      [OK] Mobile node_modules installed" -ForegroundColor Green
 
 # ── 4. Download MariaDB portable binaries ────────────────────────────────────
 Write-Host "`n[4/4] Setting up portable MariaDB engine..." -ForegroundColor Yellow
