@@ -100,11 +100,20 @@ export async function pingServer(): Promise<boolean> {
     if (config?.token) {
       headers['Authorization'] = `Bearer ${config.token}`
     }
-    const res = await fetch(`${base}/api/health`, {
-      headers,
-      signal: AbortSignal.timeout(4000)
-    })
-    return res.ok
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 4000)
+
+    try {
+      const res = await fetch(`${base}/api/health`, {
+        headers,
+        signal: controller.signal
+      })
+      clearTimeout(timeoutId)
+      return res.ok
+    } catch {
+      clearTimeout(timeoutId)
+      return false
+    }
   } catch {
     return false
   }

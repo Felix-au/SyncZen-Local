@@ -1,6 +1,8 @@
 import express, { Application, Request, Response, NextFunction } from 'express'
 import cors from 'cors'
 import * as http from 'http'
+import * as path from 'path'
+import { app as electronApp } from 'electron'
 import { initDatabase } from './db'
 import roomsRouter from './routes/rooms'
 import bookingsRouter from './routes/bookings'
@@ -48,7 +50,7 @@ export async function startApiServer(): Promise<{ port: number }> {
       return next()
     }
 
-    console.warn(`[Auth] Blocked request from ${clientIp}: ${req.method} ${req.path} (Invalid or missing pairing token)`)
+    console.warn(`[Auth] Blocked request from ${clientIp}: ${req.method} ${req.path} (Got: "${authHeader}", Expected: "Bearer ${expectedToken}")`)
     res.status(401).json({ error: 'Unauthorized: Invalid or missing pairing credentials.' })
   })
 
@@ -56,6 +58,10 @@ export async function startApiServer(): Promise<{ port: number }> {
   app.get('/api/health', (_req, res) => {
     res.json({ status: 'ok', version: '1.0.0', timestamp: new Date().toISOString() })
   })
+
+  // Serve uploaded assets
+  const storageDir = path.join(electronApp.getPath('userData'), 'storage')
+  app.use('/storage', express.static(storageDir))
 
   // Routers
   app.use('/api/rooms', roomsRouter)
