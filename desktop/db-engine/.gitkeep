@@ -1,3 +1,0 @@
-# This file keeps the db-engine/ directory tracked by git.
-# The actual MariaDB binaries (bin/*.exe, bin/*.dll) are NOT committed.
-# Run scripts/setup-mariadb.ps1 to populate this directory.
