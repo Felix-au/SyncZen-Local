@@ -34,6 +34,8 @@ win:
         - x64
 
 nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
   artifactName: SyncStay-Setup-${version}.exe
   shortcutName: SyncStay
   uninstallDisplayName: SyncStay

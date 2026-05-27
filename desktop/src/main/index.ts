@@ -8,6 +8,9 @@ import { initDatabase, dbAll, dbGet, dbRun, autoCheckoutOverdue } from './db'
 import { loadConfig, getApiToken, isSetupComplete, markSetupComplete, regenerateToken } from './config'
 import { startApiServer, stopApiServer, getLocalIp, apiPort } from './api'
 
+// Disable GPU acceleration to prevent FATAL crashes in virtual/RDP/VM environments
+app.disableHardwareAcceleration()
+
 const execAsync = promisify(exec)
 
 /**
