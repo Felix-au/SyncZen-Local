@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "composite": true,
     "outDir": "dist-electron",
     "skipLibCheck": true,
     "module": "CommonJS",
@@ -8,7 +7,8 @@
     "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "rootDir": "electron"
   },
   "include": ["electron"]
 }
