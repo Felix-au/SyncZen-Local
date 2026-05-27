@@ -1,3 +1,4 @@
+import { Platform } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -5,22 +6,30 @@ const URL_KEY   = 'syncstay_server_url'
 const TOKEN_KEY = 'syncstay_token'
 const QUEUE_KEY = 'syncstay_offline_queue'
 
+// expo-secure-store is native-only — fall back to AsyncStorage on web
+const secureGet = (key: string) =>
+  Platform.OS === 'web' ? AsyncStorage.getItem(key) : SecureStore.getItemAsync(key)
+const secureSet = (key: string, val: string) =>
+  Platform.OS === 'web' ? AsyncStorage.setItem(key, val) : SecureStore.setItemAsync(key, val)
+const secureDel = (key: string) =>
+  Platform.OS === 'web' ? AsyncStorage.removeItem(key) : SecureStore.deleteItemAsync(key)
+
 // ── Server config ─────────────────────────────────────────────────────────────
 export async function saveServerConfig(url: string, token: string) {
   await AsyncStorage.setItem(URL_KEY, url)
-  await SecureStore.setItemAsync(TOKEN_KEY, token)
+  await secureSet(TOKEN_KEY, token)
 }
 
 export async function getServerConfig(): Promise<{ url: string; token: string } | null> {
   const url   = await AsyncStorage.getItem(URL_KEY)
-  const token = await SecureStore.getItemAsync(TOKEN_KEY)
+  const token = await secureGet(TOKEN_KEY)
   if (!url || !token) return null
   return { url, token }
 }
 
 export async function clearServerConfig() {
   await AsyncStorage.removeItem(URL_KEY)
-  await SecureStore.deleteItemAsync(TOKEN_KEY)
+  await secureDel(TOKEN_KEY)
 }
 
 // ── Offline queue ──────────────────────────────────────────────────────────────
