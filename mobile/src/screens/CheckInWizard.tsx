@@ -5,6 +5,7 @@ import { colors, radius, font, space } from '../theme'
 import { smartCheckin } from '../sync'
 import { fetchAvailableRooms, uploadPhoto } from '../api'
 import PhotoWidget from '../components/PhotoWidget'
+import { saveRoomsCache, getRoomsCache } from '../store'
 
 type Step = 'party' | 'guest' | 'document' | 'rooms' | 'confirm'
 type Guest = { name: string; phone: string; age: string; sex: string; photoUri: string | null; skipped: boolean }
@@ -53,7 +54,18 @@ export default function CheckInWizard({ onDone }: { onDone: () => void }) {
   const [saving, setSaving]   = useState(false)
   const [result, setResult]   = useState<{ ok: boolean; offline: boolean; ref?: string } | null>(null)
 
-  useEffect(() => { if (step === 'rooms') fetchAvailableRooms().then(setRooms).catch(() => setRooms([])) }, [step])
+  const [offlineRooms, setOfflineRooms] = useState(false)
+
+  useEffect(() => {
+    if (step === 'rooms') {
+      fetchAvailableRooms()
+        .then(r => { setRooms(r); saveRoomsCache(r); setOfflineRooms(false) })
+        .catch(async () => {
+          const cached = await getRoomsCache()
+          if (cached) { setRooms(cached); setOfflineRooms(true) }
+        })
+    }
+  }, [step])
 
   const checkout = () => { const d = new Date(); d.setDate(d.getDate() + (parseInt(nights)||1)); return d.toISOString().slice(0,10) }
 
@@ -239,6 +251,11 @@ export default function CheckInWizard({ onDone }: { onDone: () => void }) {
       <ScrollView contentContainerStyle={s.page}>
         <Text style={s.title}>Select Room(s)</Text>
         <Text style={s.sub}>{selRooms.length?`${selRooms.length} selected`:'Pick one or more available rooms'}</Text>
+        {offlineRooms && (
+          <View style={{backgroundColor:'#7C3A00',borderRadius:radius.sm,padding:space.sm,marginBottom:space.sm}}>
+            <Text style={{color:'#FFB347',fontWeight:'700',fontSize:font.sm}}>📶 Offline — showing cached rooms. Availability may have changed.</Text>
+          </View>
+        )}
         <View style={{flexDirection:'row',alignItems:'center',gap:space.md,marginBottom:space.md,flexWrap:'wrap'}}>
           <View><Text style={s.lbl}>NIGHTS</Text><TextInput style={[s.input,{width:80,textAlign:'center'}]} value={nights} onChangeText={setNights} keyboardType="number-pad"/></View>
           <View style={{marginTop:18}}><Text style={s.lbl}>CHECK-OUT</Text><Text style={{fontSize:font.md,fontWeight:'700',color:colors.accent}}>{checkout()}</Text></View>

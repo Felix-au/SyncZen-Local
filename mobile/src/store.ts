@@ -68,3 +68,16 @@ export async function bumpAttempts(id: string) {
   const updated = q.map(i => i.id === id ? { ...i, attempts: i.attempts + 1 } : i)
   await AsyncStorage.setItem(QUEUE_KEY, JSON.stringify(updated))
 }
+
+// ── Rooms cache (for offline use) ─────────────────────────────────────────────
+const ROOMS_KEY = 'syncstay_rooms_cache'
+
+export async function saveRoomsCache(rooms: any[]) {
+  await AsyncStorage.setItem(ROOMS_KEY, JSON.stringify({ rooms, cachedAt: Date.now() }))
+}
+
+export async function getRoomsCache(): Promise<any[] | null> {
+  const raw = await AsyncStorage.getItem(ROOMS_KEY)
+  if (!raw) return null
+  return JSON.parse(raw).rooms ?? null
+}

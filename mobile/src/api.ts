@@ -58,7 +58,14 @@ export async function uploadPhoto(uri: string, prefix = 'photo'): Promise<string
         reader.readAsDataURL(blob)
       })
     } else {
-      const raw = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 })
+      // Android may return content:// URIs — copy to file cache first
+      let fileUri = uri
+      if (!uri.startsWith('file://')) {
+        const cacheUri = FileSystem.cacheDirectory + `${prefix}_${Date.now()}.jpg`
+        await FileSystem.copyAsync({ from: uri, to: cacheUri })
+        fileUri = cacheUri
+      }
+      const raw = await FileSystem.readAsStringAsync(fileUri, { encoding: FileSystem.EncodingType.Base64 })
       base64 = `data:image/jpeg;base64,${raw}`
     }
     const res = await request('/api/photos/upload', { method: 'POST', body: JSON.stringify({ data: base64, prefix }) }, 20000)
