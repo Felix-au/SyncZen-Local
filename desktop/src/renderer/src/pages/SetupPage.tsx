@@ -12,7 +12,6 @@ const STEPS = [
 
 export default function SetupPage({ onDone }: { onDone: () => void }): JSX.Element {
   const [steps, setSteps] = useState<Step[]>(STEPS.map((label) => ({ label, status: 'waiting' })))
-  const [running, setRunning] = useState(false)
   const [error, setError] = useState('')
   const [done, setDone] = useState(false)
   const started = useRef(false)
@@ -29,9 +28,7 @@ export default function SetupPage({ onDone }: { onDone: () => void }): JSX.Eleme
       )
     })
 
-    setRunning(true)
     window.api.setup.run().then((res) => {
-      setRunning(false)
       if (res.success) {
         setDone(true)
         setTimeout(onDone, 1200)

@@ -7,10 +7,6 @@ interface Room {
 }
 
 const STATUS_OPTIONS = ['available', 'occupied', 'maintenance', 'checkout']
-const STATUS_BADGE: Record<string, string> = {
-  available: 'badge-green', occupied: 'badge-amber',
-  maintenance: 'badge-red', checkout: 'badge-blue'
-}
 const ROOM_TYPES = ['Standard', 'Deluxe', 'Suite', 'Executive', 'Family', 'Presidential']
 
 export default function RoomsPage(): JSX.Element {

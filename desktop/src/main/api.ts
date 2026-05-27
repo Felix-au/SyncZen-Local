@@ -81,10 +81,12 @@ export async function startApiServer(): Promise<number> {
     }
   })
 
-  // ─── Photo upload (from mobile) ─────────────────────────────────────────────
-  app.post('/api/photos/upload', (req, res) => {
+  app.post('/api/photos/upload', (req, res): void => {
     const { data, prefix = 'photo' } = req.body
-    if (!data) return res.status(400).json({ error: 'No image data' })
+    if (!data) {
+      res.status(400).json({ error: 'No image data' })
+      return
+    }
     try {
       const photosDir = path.join(electronApp.getPath('userData'), 'photos')
       fs.mkdirSync(photosDir, { recursive: true })
@@ -110,10 +112,11 @@ export async function startApiServer(): Promise<number> {
   })
 
   // ─── Check-in (from mobile) ───────────────────────────────────────────────
-  app.post('/api/checkin', (req, res) => {
+  app.post('/api/checkin', (req, res): void => {
     const { guests, room_ids, check_out_date, notes, document_path } = req.body
     if (!guests?.length || !room_ids?.length || !check_out_date) {
-      return res.status(400).json({ error: 'guests, room_ids, and check_out_date are required' })
+      res.status(400).json({ error: 'guests, room_ids, and check_out_date are required' })
+      return
     }
 
     try {

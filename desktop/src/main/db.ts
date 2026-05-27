@@ -26,7 +26,7 @@ export async function initDatabase(): Promise<void> {
   const wasmPath = getWasmPath()
   const wasmBuffer = fs.readFileSync(wasmPath)
 
-  SQL = await initSqlJs({ wasmBinary: wasmBuffer })
+  SQL = await initSqlJs({ wasmBinary: wasmBuffer.buffer as ArrayBuffer })
 
   const dbPath = getDbPath()
   if (fs.existsSync(dbPath)) {
