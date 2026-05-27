@@ -66,9 +66,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
   ],
-  extra: {
-    eas: {
-      projectId: 'YOUR-EAS-PROJECT-ID',  // Replace after running: eas init
-    },
-  },
+  // extra: {
+  //   eas: {
+  //     projectId: 'YOUR-EAS-PROJECT-ID',  // Replace after running: eas init
+  //   },
+  // },
 })

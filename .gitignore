@@ -42,6 +42,7 @@ desktop/storage/id-proofs/
 /assets/uploads/
 mysql-data/
 maria-data/
+mobile/assets/*.png
 
 # MariaDB runtime data directory (created at first launch in userData)
 desktop/db-engine/data/
