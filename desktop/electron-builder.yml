@@ -20,6 +20,8 @@ files:
 extraResources:
   - from: node_modules/sql.js/dist/sql-wasm.wasm
     to: sql-wasm.wasm
+  - from: build/icon.png
+    to: icon.png
 
 asar: true
 asarUnpack:

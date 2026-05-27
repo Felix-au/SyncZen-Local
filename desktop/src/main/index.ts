@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain, dialog, session } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, dialog, session, nativeImage } from 'electron'
 import { join } from 'path'
 import * as fs from 'fs'
 import { electronApp } from '@electron-toolkit/utils'
@@ -83,6 +83,13 @@ async function ensureFirewallRule(): Promise<void> {
   }
 }
 
+function getIconPath(): string {
+  if (app.isPackaged) {
+    return join(process.resourcesPath, 'icon.png')
+  }
+  return join(__dirname, '../../build/icon.png')
+}
+
 let mainWindow: BrowserWindow | null = null
 
 function createWindow(): void {
@@ -93,6 +100,7 @@ function createWindow(): void {
     minHeight: 600,
     show: false,
     title: 'SyncStay',
+    icon: nativeImage.createFromPath(getIconPath()),
     backgroundColor: '#080E1A',
     autoHideMenuBar: true,
     webPreferences: {
