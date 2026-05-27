@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import PhotoImg from '../components/PhotoImg'
 
 interface GuestForm { name: string; phone: string; age: string; sex: string; photoPath: string | null; skipped: boolean }
 interface Room { id: number; room_number: string; room_type: string; floor: number; price_per_night: number }
@@ -70,7 +71,9 @@ function PhotoWidget({ value, onChange, prefix = 'photo' }: { value: string | nu
   return (
     <div className="photo-btn-wrap">
       <div className="photo-thumb" onClick={() => setShowCam(true)}>
-        {value ? <img src={`file://${value}`} alt="photo" /> : '👤'}
+        {value
+          ? <PhotoImg src={value} style={{ width:'100%', height:'100%', objectFit:'cover' }} />
+          : '👤'}
       </div>
       <div className="photo-actions-row">
         <button className="btn btn-ghost btn-sm" onClick={() => setShowCam(true)}>📷 Camera</button>
@@ -296,7 +299,7 @@ export default function CheckInPage({ onDone }: { onDone: () => void }) {
 
         <div className="doc-upload-area" style={{ cursor: 'pointer' }} onClick={() => setShowDocCam(true)}>
           {documentPath
-            ? <img src={`file://${documentPath}`} alt="document" />
+            ? <PhotoImg src={documentPath} style={{ width:'100%', maxHeight:260, objectFit:'contain', borderRadius:8 }} />
             : <><span style={{ fontSize: 42, opacity: 0.4 }}>🪪</span>
                 <span style={{ fontWeight: 600, fontSize: 14 }}>Click to capture or attach</span>
                 <span style={{ fontSize: 12, color: 'var(--text-mute)' }}>JPG, PNG, WEBP supported</span></>
@@ -387,7 +390,9 @@ export default function CheckInPage({ onDone }: { onDone: () => void }) {
           {guests.map((x, i) => (
             <div key={i} className="confirm-guest-card">
               <div className="confirm-guest-avatar">
-                {x.photoPath ? <img src={`file://${x.photoPath}`} alt="" style={{ width:'100%', height:'100%', objectFit:'cover', borderRadius:'50%' }} /> : '👤'}
+                {x.photoPath
+                  ? <PhotoImg src={x.photoPath} style={{ width:'100%', height:'100%', objectFit:'cover', borderRadius:'50%' }} />
+                  : '👤'}
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontWeight: 700, fontSize: 13 }}>
@@ -405,7 +410,7 @@ export default function CheckInPage({ onDone }: { onDone: () => void }) {
         {documentPath && (
           <div className="confirm-section">
             <div className="confirm-label">Document</div>
-            <img src={`file://${documentPath}`} alt="doc" style={{ maxHeight: 90, borderRadius: 8, border: '1px solid var(--border)', objectFit: 'contain', background: 'var(--bg-elevated)' }} />
+            <PhotoImg src={documentPath} style={{ maxHeight: 90, borderRadius: 8, border: '1px solid var(--border)', objectFit: 'contain', background: 'var(--bg-elevated)', display:'block' }} />
           </div>
         )}
 

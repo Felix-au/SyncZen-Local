@@ -4,7 +4,7 @@ import * as fs from 'fs'
 import { electronApp } from '@electron-toolkit/utils'
 import { exec } from 'child_process'
 import { promisify } from 'util'
-import { initDatabase, dbAll, dbGet, dbRun } from './db'
+import { initDatabase, dbAll, dbGet, dbRun, autoCheckoutOverdue } from './db'
 import { loadConfig, getApiToken, isSetupComplete, markSetupComplete, regenerateToken } from './config'
 import { startApiServer, stopApiServer, getLocalIp, apiPort } from './api'
 
@@ -125,6 +125,7 @@ function registerIpcHandlers(): void {
     if (!isSetupComplete()) return { needsSetup: true }
     try {
       await initDatabase()
+      autoCheckoutOverdue()   // check out any past-due bookings on every launch
       await startApiServer()
       return { needsSetup: false, port: apiPort }
     } catch (err: any) {
@@ -231,6 +232,22 @@ function registerIpcHandlers(): void {
     const rooms  = dbAll(`SELECT r.* FROM rooms r JOIN room_allocations ra ON ra.room_id = r.id WHERE ra.group_id = ?`, [numId])
     console.log('[IPC] Detail: booking', booking.booking_reference, '| guests', guests.length, '| rooms', rooms.length)
     return { booking, guests, rooms }
+  })
+
+  // ── Read any local file as base64 data URL (avoids file:// cross-origin block) ─
+  ipcMain.handle('photo:getDataUrl', (_e, filePath: string) => {
+    if (!filePath) return null
+    try {
+      if (!fs.existsSync(filePath)) { console.warn('[Photo] File not found:', filePath); return null }
+      const data = fs.readFileSync(filePath)
+      const ext  = filePath.split('.').pop()?.toLowerCase() ?? 'jpg'
+      const mime = ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg'
+                 : ext === 'png'  ? 'image/png'
+                 : ext === 'webp' ? 'image/webp' : 'image/jpeg'
+      return `data:${mime};base64,${data.toString('base64')}`
+    } catch (e) {
+      console.error('[Photo] getDataUrl error:', e); return null
+    }
   })
 
   // ── Save camera-captured photo to disk ──────────────────────────────────────

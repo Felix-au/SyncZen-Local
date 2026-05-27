@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import PhotoImg from '../components/PhotoImg'
 
 interface Booking {
   id: number; booking_reference: string; check_in_time: string
@@ -88,7 +89,7 @@ function DetailModal({ id, onClose, onCheckout }: { id: number; onClose: () => v
                   <div key={g.id} className="detail-guest-card">
                     <div className="detail-guest-photo">
                       {g.photo_path
-                        ? <img src={`file://${g.photo_path}`} alt={g.name} />
+                        ? <PhotoImg src={g.photo_path} style={{ width:'100%', height:'100%', objectFit:'cover' }} />
                         : '👤'
                       }
                     </div>
@@ -120,11 +121,9 @@ function DetailModal({ id, onClose, onCheckout }: { id: number; onClose: () => v
                   <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-mute)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 10 }}>
                     ID Document
                   </div>
-                  <img
-                    src={`file://${detail.booking.id_proof_path}`}
-                    alt="Document"
-                    className="detail-doc-img"
-                    style={{ marginBottom: 16 }}
+                  <PhotoImg
+                    src={detail.booking.id_proof_path}
+                    style={{ width:'100%', maxHeight:200, borderRadius:8, objectFit:'contain', background:'var(--bg-elevated)', border:'1px solid var(--border)', display:'block', marginBottom:16 }}
                   />
                 </>
               )}

@@ -158,3 +158,26 @@ export function dbRun(sql: string, params: any[] = []): number {
     throw err
   }
 }
+
+// Auto-checkout bookings whose check_out_date has passed.
+// Called on every app boot — works even if app was closed for multiple days.
+export function autoCheckoutOverdue(): void {
+  try {
+    const overdue = dbAll(
+      `SELECT id FROM booking_groups WHERE status = 'checked_in' AND check_out_date < date('now')`
+    )
+    if (!overdue.length) return
+    console.log(`[DB] Auto-checking out ${overdue.length} overdue booking(s)`)
+    for (const b of overdue) {
+      // Free rooms
+      const allocs = dbAll(`SELECT room_id FROM room_allocations WHERE group_id = ?`, [b.id])
+      for (const a of allocs) {
+        dbRun(`UPDATE rooms SET status = 'available', updated_at = datetime('now') WHERE id = ?`, [Number(a.room_id)])
+      }
+      dbRun(`UPDATE booking_groups SET status = 'checked_out' WHERE id = ?`, [Number(b.id)])
+      console.log(`[DB] Auto-checked out booking id=${b.id}`)
+    }
+  } catch (err) {
+    console.error('[DB] autoCheckoutOverdue error:', err)
+  }
+}

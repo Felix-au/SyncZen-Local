@@ -56,8 +56,11 @@ const api = {
 
   photo: {
     save: (data: { dataUrl: string; prefix?: string }): Promise<string> =>
-      ipcRenderer.invoke('photo:save', data)
+      ipcRenderer.invoke('photo:save', data),
+    getDataUrl: (filePath: string): Promise<string | null> =>
+      ipcRenderer.invoke('photo:getDataUrl', filePath)
   }
+
 
 }
 
