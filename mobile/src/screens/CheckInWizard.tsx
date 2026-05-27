@@ -100,6 +100,10 @@ export default function CheckInWizard({ onDone }: { onDone: () => void }) {
           is_primary: i===0
         })),
         room_ids: selRooms, check_out_date: checkout(), document_path: docPath??undefined, notes: notes.trim()||undefined
+      }, {
+        // Only store URIs that failed to upload — they'll be retried on sync
+        guests: guests.map((x, i) => photoPaths[i] === null ? x.photoUri : null),
+        document: docPath === null ? docUri : null
       })
       setResult(res)
     } catch(e:any) { Alert.alert('Error', e.message) }
