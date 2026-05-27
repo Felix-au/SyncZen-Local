@@ -18,20 +18,19 @@ const execAsync = promisify(exec)
 async function ensureFirewallRule(): Promise<void> {
   if (process.platform !== 'win32') return
   try {
-    const { stdout } = await execAsync('netsh advfirewall firewall show rule name="SyncStay API"').catch(() => ({ stdout: '' }))
-    if (stdout.includes('SyncStay API')) {
+    const { stdout } = await execAsync('netsh advfirewall firewall show rule name="SyncStay-API"').catch(() => ({ stdout: '' }))
+    if (stdout.includes('SyncStay-API')) {
       console.log('[Firewall] Rule already present — skipping')
       return
     }
     console.log('[Firewall] Rule missing — requesting elevation to add it...')
-    // Clean up old mis-named rule if present (from first boot bug)
-    await execAsync('netsh advfirewall firewall delete rule name="SyncStay-API"').catch(() => {})
-    // Use Start-Process -Verb RunAs to trigger Windows UAC elevation
+    // Start-Process with -Verb RunAs triggers Windows UAC elevation dialog
     await execAsync(
-      `powershell -Command "Start-Process -FilePath 'netsh' -ArgumentList 'advfirewall firewall add rule name=""SyncStay API"" dir=in action=allow protocol=TCP localport=8080' -Verb RunAs -Wait"`
+      `powershell -Command "Start-Process -FilePath 'netsh' -ArgumentList 'advfirewall firewall add rule name=SyncStay-API dir=in action=allow protocol=TCP localport=8080' -Verb RunAs -Wait"`
     )
     console.log('[Firewall] Rule added successfully')
   } catch (err: any) {
+    // Non-fatal: user cancelled UAC or policy blocks elevation
     console.warn('[Firewall] Could not add rule (user may have cancelled UAC):', err.message)
   }
 }
