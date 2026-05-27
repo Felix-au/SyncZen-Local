@@ -20,7 +20,18 @@ export async function smartCheckin(
     const res = await submitCheckin(payload)
     return { ok: true, offline: false, reference: res.booking_reference }
   } catch (err: any) {
-    if (err.message === 'TIMEOUT' || err.message === 'NOT_PAIRED' || err.name === 'TypeError') {
+    const msg: string = err.message ?? ''
+    const isNetwork =
+      err.message === 'TIMEOUT' ||
+      err.message === 'NOT_PAIRED' ||
+      err.name === 'TypeError' ||
+      err.name === 'AbortError' ||
+      msg.includes('fetch') ||
+      msg.includes('cancel') ||
+      msg.includes('network') ||
+      msg.includes('abort') ||
+      msg.includes('timeout')
+    if (isNetwork) {
       const queueId = await enqueue({ checkin: payload, photoBase64: photoBase64 ?? null })
       return { ok: false, offline: true, queueId }
     }

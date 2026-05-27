@@ -28,7 +28,13 @@ async function request(path: string, options: RequestInit = {}, timeoutMs = 8000
     return res.json()
   } catch (err: any) {
     clearTimeout(timer)
-    if (err.name === 'AbortError') throw new Error('TIMEOUT')
+    // React Native / Hermes may use different names for abort errors
+    if (
+      err.name === 'AbortError' ||
+      err.message?.includes('cancel') ||
+      err.message?.includes('abort') ||
+      err.message?.includes('timed out')
+    ) throw new Error('TIMEOUT')
     throw err
   }
 }
