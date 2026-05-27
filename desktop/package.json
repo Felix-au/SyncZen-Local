@@ -4,7 +4,7 @@
   "description": "Hotel Check-In & Data Tracker — Desktop Overseer (Windows EXE)",
   "main": "dist-electron/main.js",
   "scripts": {
-    "dev": "tsc -p tsconfig.electron.json && concurrently -k \"tsc -p tsconfig.electron.json --watch\" \"vite\" \"node -e \\\"const net = require('net'); const check = () => { const s = net.createConnection(5173, 'localhost', () => { s.end(); process.exit(0); }); s.on('error', () => setTimeout(check, 200)); }; check();\\\" && electron .\"",
+    "dev": "tsc -p tsconfig.electron.json && concurrently -k \"tsc -p tsconfig.electron.json --watch\" \"vite\" \"node ../scripts/wait-port.js 5173 && electron .\"",
     "build": "vite build && tsc -p tsconfig.electron.json",
     "package": "npm run build && electron-builder",
     "package:dir": "npm run build && electron-builder --dir",
