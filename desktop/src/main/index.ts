@@ -10,6 +10,9 @@ import { startApiServer, stopApiServer, getLocalIp, apiPort } from './api'
 
 // Disable GPU acceleration to prevent FATAL crashes in virtual/RDP/VM environments
 app.disableHardwareAcceleration()
+app.commandLine.appendSwitch('disable-gpu')
+app.commandLine.appendSwitch('disable-software-rasterizer')
+app.commandLine.appendSwitch('no-sandbox')
 
 function setupLogging(): void {
   try {
