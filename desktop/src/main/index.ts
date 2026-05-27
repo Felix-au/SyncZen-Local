@@ -88,7 +88,7 @@ function createWindow(): void {
     height: 800,
     minWidth: 960,
     minHeight: 600,
-    show: true,
+    show: false,
     title: 'SyncStay',
     backgroundColor: '#080E1A',
     autoHideMenuBar: true,
@@ -99,7 +99,9 @@ function createWindow(): void {
     }
   })
 
-  mainWindow.webContents.openDevTools()
+  if (process.env['NODE_ENV'] === 'development' || !app.isPackaged) {
+    mainWindow.webContents.openDevTools()
+  }
 
   mainWindow.on('ready-to-show', () => mainWindow?.show())
 
