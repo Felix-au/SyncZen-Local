@@ -44,9 +44,11 @@ export async function startApiServer(): Promise<{ port: number }> {
     const expectedToken = getApiToken()
 
     if (authHeader && authHeader === `Bearer ${expectedToken}`) {
+      console.log(`[Auth] Authenticated remote request from ${clientIp}: ${req.method} ${req.path}`)
       return next()
     }
 
+    console.warn(`[Auth] Blocked request from ${clientIp}: ${req.method} ${req.path} (Invalid or missing pairing token)`)
     res.status(401).json({ error: 'Unauthorized: Invalid or missing pairing credentials.' })
   })
 
