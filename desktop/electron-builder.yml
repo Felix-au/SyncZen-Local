@@ -38,6 +38,8 @@ win:
 
 nsis:
   oneClick: false
+  perMachine: true
+  allowElevation: true
   allowToChangeInstallationDirectory: true
   artifactName: SyncStay-Setup-${version}.exe
   shortcutName: SyncStay
