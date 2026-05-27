@@ -1,10 +1,11 @@
-import mariadb from 'mariadb'
+import mysql from 'mysql2/promise'
 
-let pool: mariadb.Pool | null = null
+let rawPool: mysql.Pool | null = null
+let proxiedPool: mysql.Pool | null = null
 
-export function getPool(): mariadb.Pool {
-  if (!pool) {
-    pool = mariadb.createPool({
+export function getPool(): any {
+  if (!rawPool) {
+    rawPool = mysql.createPool({
       host: '127.0.0.1',
       port: 3307,
       user: 'root',
@@ -13,8 +14,40 @@ export function getPool(): mariadb.Pool {
       connectionLimit: 10,
       connectTimeout: 5000,
     })
+
+    // Create a Proxy around the pool to auto-destructure [rows] from [rows, fields]
+    // matching the return type signature of the mariadb driver.
+    proxiedPool = new Proxy(rawPool, {
+      get(target, prop, receiver) {
+        if (prop === 'query') {
+          return async (sql: string, values?: any) => {
+            const [rows] = await target.query(sql, values)
+            return rows
+          }
+        }
+        if (prop === 'getConnection') {
+          return async () => {
+            const conn = await target.getConnection()
+            return new Proxy(conn, {
+              get(connTarget, connProp) {
+                if (connProp === 'query') {
+                  return async (sql: string, values?: any) => {
+                    const [rows] = await connTarget.query(sql, values)
+                    return rows
+                  }
+                }
+                const value = (connTarget as any)[connProp]
+                return typeof value === 'function' ? value.bind(connTarget) : value
+              }
+            })
+          }
+        }
+        const value = (target as any)[prop]
+        return typeof value === 'function' ? value.bind(target) : value
+      }
+    }) as unknown as mysql.Pool
   }
-  return pool
+  return proxiedPool!
 }
 
 export async function initDatabase(): Promise<void> {
@@ -89,8 +122,9 @@ export async function initDatabase(): Promise<void> {
 }
 
 export async function closePool(): Promise<void> {
-  if (pool) {
-    await pool.end()
-    pool = null
+  if (rawPool) {
+    await rawPool.end()
+    rawPool = null
+    proxiedPool = null
   }
 }

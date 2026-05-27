@@ -87,10 +87,10 @@ async function runDbInit(engineDir: string, dataDir: string): Promise<void> {
 }
 
 async function waitForMariaDB(retries = 20, delayMs = 500): Promise<void> {
-  const mariadb = await import('mariadb')
+  const mysql = await import('mysql2/promise')
   for (let i = 0; i < retries; i++) {
     try {
-      const conn = await mariadb.createConnection({
+      const conn = await mysql.createConnection({
         host: '127.0.0.1',
         port: 3307,
         user: 'root',
