@@ -1,10 +1,10 @@
 <p align="center">
   <img src="logo.png" width="150" alt="SyncZen Local Logo"/>
 </p>
-<h1 align="center">SyncZen Local: Your Local Hotel Check-In System</h1>
+<h1 align="center">🏨 SyncZen Local: Your Local Hotel Check-In System</h1>
 <p align="center">
-  <strong>Modern, unified hotel check-in and data tracking ecosystem running entirely on your local network</strong><br/>
-  <em>Pair device → capture guest details and ID proof → sync instantly or buffer offline — all secure</em>
+  <strong>⚡ Modern, unified hotel check-in and data tracking ecosystem running entirely on your local network</strong><br/>
+  <em>Pair device ➔ capture guest details and ID proof ➔ sync instantly or buffer offline — all secure 🛡️</em>
 </p>
 
 <p align="center">
@@ -17,24 +17,24 @@
 
 ---
 
-## Table of Contents
+## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Why SyncZen Local?](#why-synczen-local)
-- [Features](#features)
-- [Database Schema and Storage](#database-schema-and-storage)
-- [Architecture](#architecture)
-- [Pipeline Flow and Processing Overview](#pipeline-flow-and-processing-overview)
-- [Visual UI Guides](#visual-ui-guides)
-- [API Reference](#api-reference)
-- [Build Run and Deployment Options](#build-run-and-deployment-options)
-- [Project Structure and Key Components](#project-structure-and-key-components)
-- [Troubleshooting and Failsafes](#troubleshooting-and-failsafes)
-- [Author](#author)
+- 🔍 [Overview](#overview)
+- 🎯 [Why SyncZen Local?](#why-synczen-local)
+- ✨ [Features](#features)
+- 💾 [Database Schema and Storage](#database-schema-and-storage)
+- 🏗️ [Architecture](#architecture)
+- 🔄 [Pipeline Flow and Processing Overview](#pipeline-flow-and-processing-overview)
+- 🎨 [Visual UI Guides](#visual-ui-guides)
+- 🔌 [API Reference](#api-reference)
+- 🚀 [Build Run and Deployment Options](#build-run-and-deployment-options)
+- 📁 [Project Structure and Key Components](#project-structure-and-key-components)
+- ⚠️ [Troubleshooting and Failsafes](#troubleshooting-and-failsafes)
+- 👤 [Author](#author)
 
 ---
 
-## Overview
+## 🔍 Overview
 
 **SyncZen Local** is a secure, local-first guest registration and data management system for hospitality teams. It provides a central administrative dashboard (developed as an Electron desktop workstation) and companion mobile check-in assistant devices (React Native/Expo). 
 
@@ -42,21 +42,21 @@ By hosting its own API server and leveraging in-memory WebAssembly SQLite, SyncZ
 
 ---
 
-## Why SyncZen Local?
+## 🎯 Why SyncZen Local?
 
-> **Traditional Property Management Systems (PMS) depend on cloud databases and internet uptime. SyncZen Local keeps your front desk moving, even when the internet goes down.**
+> **Traditional Property Management Systems (PMS) depend on cloud databases and internet uptime. SyncZen Local keeps your front desk moving, even when the internet goes down. 🌐**
 
 | Operational Metric | Cloud PMS | SyncZen Local |
 |---|---|---|
-| **WiFi Dependency** | Requires active internet connection to function | Works offline over your local router |
-| **Check-In Speed** | Latency dependent on server responses | Instant local database reads & writes |
-| **Media Handling** | Photos uploaded to cloud storage buckets | Compressed photos stored locally on desktop disk |
-| **Privacy Compliance** | Guest IDs and data shared with third parties | All data and files remain on your premises |
-| **Reliability** | Internet outage = front-desk halt | Zero downtime; mobile syncs queue when off-range |
+| **📶 WiFi Dependency** | Requires active internet connection to function | Works offline over your local router |
+| **⚡ Check-In Speed** | Latency dependent on server responses | Instant local database reads & writes |
+| **📷 Media Handling** | Photos uploaded to cloud storage buckets | Compressed photos stored locally on desktop disk |
+| **🛡️ Privacy Compliance** | Guest IDs and data shared with third parties | All data and files remain on your premises |
+| **🔋 Reliability** | Internet outage = front-desk halt | Zero downtime; mobile syncs queue when off-range |
 
 ---
 
-## Features
+## ✨ Features
 
 ### 🖥️ Desktop Workstation
 *   **Central Administration:** Real-time stats, rooms manager, and guest booking logs.
@@ -78,7 +78,7 @@ By hosting its own API server and leveraging in-memory WebAssembly SQLite, SyncZ
 
 ---
 
-## Database Schema and Storage
+## 💾 Database Schema and Storage
 
 ### Schema SQL DDL
 
@@ -150,7 +150,7 @@ All persistent configs and files are saved under the Electron application's `use
 
 ---
 
-## Architecture
+## 🏗️ Architecture
 
 ```mermaid
 graph TD
@@ -230,7 +230,7 @@ graph TD
 
 ---
 
-## Pipeline Flow and Processing Overview
+## 🔄 Pipeline Flow and Processing Overview
 
 ```mermaid
 flowchart TD
@@ -291,7 +291,7 @@ WASM memory database exported to synczen.db
 
 ---
 
-## Visual UI Guides
+## 🎨 Visual UI Guides
 
 ### Desktop Workstation Screens
 
@@ -313,7 +313,7 @@ WASM memory database exported to synczen.db
 
 ---
 
-## API Reference
+## 🔌 API Reference
 
 Every endpoint (except `/api/health`) requires authentication: `Authorization: Bearer <Token>`.
 
@@ -363,7 +363,7 @@ Every endpoint (except `/api/health`) requires authentication: `Authorization: B
 
 ---
 
-## Build Run and Deployment Options
+## 🚀 Build Run and Deployment Options
 
 ### Running from Source (Development)
 
@@ -405,7 +405,7 @@ The output file is located at `mobile/android/app/build/outputs/apk/release/app-
 
 ---
 
-## Project Structure and Key Components
+## 📁 Project Structure and Key Components
 
 ```text
 Hotel-Check-In/
@@ -437,14 +437,14 @@ Hotel-Check-In/
 | `desktop/electron/server/api.ts` | Desktop Main | Boots Express server, handles LAN IP resolution, and authorizes bearer tokens. |
 | `desktop/electron/server/db.ts` | Desktop Main | Initializes WASM `sql.js`, handles schemas, migrations, and database exports. |
 | `desktop/src/App.tsx` | Desktop Renderer | Implements layouts, sidebar nav, page routing, and boot verification. |
-| `mobile/src/store.ts` | Mobile Core | Manages AsyncStorage queues, secure token caches, and room availability cache. |
+| `mobile/App.tsx` | Mobile Core | Manages AsyncStorage queues, secure token caches, and room availability cache. |
 | `mobile/src/sync.ts` | Mobile Core | Wires check-in pipeline, triggers image uploads, and handles background sync loops. |
 | `mobile/src/screens/HomeScreen.tsx` | Mobile UI | Displays server connection indicators and manages the synchronization interface. |
 | `mobile/src/screens/CheckInWizard.tsx` | Mobile UI | Implements the step-by-step guest check-in wizard and camera triggers. |
 
 ---
 
-## Troubleshooting and Failsafes
+## ⚠️ Troubleshooting and Failsafes
 
 ### Common Issues
 
@@ -462,13 +462,12 @@ Hotel-Check-In/
 
 ---
 
-## Author
+## 👤 Author
 
-<p align="center">
-  <strong>Felix-au</strong> (Harshit Soni)<br/>
-  🔗 GitHub: <a href="https://github.com/Felix-au">github.com/Felix-au</a><br/>
-  📧 Email: <a href="mailto:harshit.soni.23cse@bmu.edu.in">harshit.soni.23cse@bmu.edu.in</a>
-</p>
+**Felix-au** (Harshit Soni)
+
+- 🔗 GitHub: [github.com/Felix-au](https://github.com/Felix-au)
+- 📧 Email: [harshit.soni.23cse@bmu.edu.in](mailto:harshit.soni.23cse@bmu.edu.in)
 
 ---
 
