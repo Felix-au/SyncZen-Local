@@ -198,13 +198,13 @@ graph TD
 │             SyncZen Local Workstation (Desktop)          │
 │                                                          │
 │  ┌──────────────┐             ┌──────────────────────┐   │
-│  │  React UI    │  ◄────────►  │ Electron Main        │   │
+│  │  React UI    │  ◄────────► │ Electron Main        │   │
 │  │  Vite Panel  │     IPC     │ process (index.ts)   │   │
 │  └──────────────┘             └──────────┬───────────┘   │
 │                                          │               │
 │  ┌──────────────┐             ┌──────────▼───────────┐   │
-│  │  Express API │  ◄────────►  │ sql.js WASM          │   │
-│  │  Server      │  local query │ (In-Memory database) │   │
+│  │  Express API │  ◄────────► │ sql.js WASM          │   │
+│  │  Server      │  local query│ (In-Memory database) │   │
 │  └──────▲───────┘             └──────────┬───────────┘   │
 │         │                                │ export        │
 │         │                                ▼               │
