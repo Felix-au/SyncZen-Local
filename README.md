@@ -1,7 +1,7 @@
 <p align="center">
   <img src="logo.png" width="150" alt="SyncZen Local Logo"/>
 </p>
-<h1 align="center">🏨 SyncZen Local: Your Local Hotel Check-In System</h1>
+<h1 align="center">SyncZen Local: Your Local Hotel Check-In System</h1>
 <p align="center">
   <strong>⚡ Modern, unified hotel check-in and data tracking ecosystem running entirely on your local network</strong><br/>
   <em>Pair device ➔ capture guest details and ID proof ➔ sync instantly or buffer offline — all secure 🛡️</em>
@@ -174,18 +174,18 @@ graph TD
     end
 
     %% Connections
-    UI <-->|IPC Channels| Main
-    Main <-->|Read/Write WASM| SQLJS
-    Main -->|Auto Save / Persistence| DBFile
-    Server <-->|Local DB Access| SQLJS
+    UI ---|"IPC Channels"| Main
+    Main ---|"Read/Write WASM"| SQLJS
+    Main -->|"Auto Save / Persistence"| DBFile
+    Server ---|"Local DB Access"| SQLJS
     
-    MobUI <-->|Write Check-ins| AsyncStr
-    AsyncStr <-->|Read Queue| SyncEngine
+    MobUI ---|"Write Check-ins"| AsyncStr
+    AsyncStr ---|"Read Queue"| SyncEngine
     
-    SyncEngine <-->|Bearer Token Auth (LAN WiFi)| Server
+    SyncEngine ---|"Bearer Token Auth (LAN WiFi)"| Server
     
     %% Pairing
-    UI -->|Generates Pair QR Code| MobUI
+    UI -->|"Generates Pair QR Code"| MobUI
 
     class DesktopApp,MobileApp main;
 ```

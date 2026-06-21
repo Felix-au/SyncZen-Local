@@ -1,10 +1,9 @@
-<p align="center">
-  <img src="logo.png" width="120" alt="SyncZen Local Logo"/>
-</p>
-<h1 align="center">📱 SyncZen Local: Quick Start & Usage Guide</h1>
-<p align="center">
-  <em>The complete quick-start guide for setting up, compiling, and operating SyncZen Local.</em>
-</p>
+# SyncZen Local: Quick Start & Usage Guide — Quick Guide
+
+A local-first guest check-in and data synchronization system operating entirely within your local WiFi network. Scan the QR code to pair devices, record guest profiles with photos and documents on the mobile assistant, and synchronize stay bookings directly to the desktop workstation.
+
+> [!IMPORTANT]
+> **Unlike cloud-based property management systems** that require internet connectivity, cloud databases, and active subscription accounts, SyncZen Local hosts its own API server and processes all guest check-ins locally using in-memory WebAssembly SQLite. Your data remains fully on your premises.
 
 ---
 
