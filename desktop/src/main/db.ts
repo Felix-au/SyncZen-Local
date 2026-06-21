@@ -7,7 +7,7 @@ let SQL: SqlJsStatic | null = null
 let db: Database | null = null
 
 function getDbPath(): string {
-  return path.join(app.getPath('userData'), 'syncstay.db')
+  return path.join(app.getPath('userData'), 'synczen.db')
 }
 
 function getWasmPath(): string {

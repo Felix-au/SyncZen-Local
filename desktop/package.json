@@ -1,9 +1,9 @@
 {
-  "name": "syncstay-desktop",
+  "name": "synczen-local-desktop",
   "version": "1.0.0",
-  "description": "SyncStay — One platform. Every device. No compromise.",
+  "description": "SyncZen Local — One platform. Every device. No compromise.",
   "main": "./out/main/index.js",
-  "author": "SyncStay",
+  "author": "SyncZen Local",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",

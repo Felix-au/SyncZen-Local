@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "SyncStay",
-    "slug": "syncstay-mobile",
+    "name": "SyncZen Local",
+    "slug": "synczen-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "scheme": "syncstay",
+    "scheme": "synczen",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -16,7 +16,7 @@
       "supportsTablet": false
     },
     "android": {
-      "package": "com.syncstay.mobile",
+      "package": "com.synczen.mobile",
       "usesCleartextTraffic": true,
       "permissions": [
         "android.permission.CAMERA",
@@ -31,13 +31,13 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "SyncStay needs camera access for guest photos and QR code scanning."
+          "cameraPermission": "SyncZen Local needs camera access for guest photos and QR code scanning."
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "SyncStay needs gallery access to attach document photos."
+          "photosPermission": "SyncZen Local needs gallery access to attach document photos."
         }
       ]
     ],

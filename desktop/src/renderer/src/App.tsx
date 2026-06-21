@@ -33,10 +33,10 @@ export default function App(): JSX.Element {
   if (booting) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', flexDirection: 'column', gap: 16 }}>
-        <img src={logoUrl} alt="SyncStay" style={{ width: 56, height: 56, borderRadius: 12, opacity: 0.8 }} />
+        <img src={logoUrl} alt="SyncZen Local" style={{ width: 56, height: 56, borderRadius: 12, opacity: 0.8 }} />
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div className="spinner" />
-          <span style={{ color: 'var(--text-mute)', fontSize: 14 }}>Starting SyncStay…</span>
+          <span style={{ color: 'var(--text-mute)', fontSize: 14 }}>Starting SyncZen Local…</span>
         </div>
       </div>
     )
@@ -62,9 +62,9 @@ export default function App(): JSX.Element {
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-brand">
-          <img src={logoUrl} alt="SyncStay" className="sidebar-logo" />
+          <img src={logoUrl} alt="SyncZen Local" className="sidebar-logo" />
           <div>
-            <div className="sidebar-name">SyncStay</div>
+            <div className="sidebar-name">SyncZen Local</div>
             <div className="sidebar-tag">One Platform. Every device.</div>
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function App(): JSX.Element {
         </nav>
 
         <div className="sidebar-footer">
-          SyncStay v1.0.0
+          SyncZen Local v1.0.0
         </div>
       </aside>
 

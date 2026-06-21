@@ -64,7 +64,7 @@ export default function PairPage(): JSX.Element {
       <div className="page-header">
         <div>
           <h1 className="page-title">Device Pairing</h1>
-          <p className="page-sub">Scan the QR code from the SyncStay mobile app</p>
+          <p className="page-sub">Scan the QR code from the SyncZen Local mobile app</p>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <button className="btn btn-ghost btn-sm" onClick={load}>↻ Refresh</button>
@@ -89,7 +89,7 @@ export default function PairPage(): JSX.Element {
                 <img src={info.qr} alt="Pairing QR Code" style={{ width: 220, height: 220, display: 'block', borderRadius: 4 }} />
               </div>
               <p style={{ fontSize: 12, color: 'var(--text-mute)', textAlign: 'center', maxWidth: 220, lineHeight: 1.6 }}>
-                Open SyncStay on your Android device and scan this code
+                Open SyncZen Local on your Android device and scan this code
               </p>
             </div>
 

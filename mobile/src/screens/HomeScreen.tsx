@@ -58,7 +58,7 @@ export default function HomeScreen({ onStartCheckin, onUnpair }: Props) {
       >
         {/* Header */}
         <View style={s.header}>
-          <Text style={s.logo}>SyncStay</Text>
+          <Text style={s.logo}>SyncZen Local</Text>
           <Text style={s.tag}>Mobile Check-In</Text>
         </View>
 

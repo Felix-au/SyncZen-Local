@@ -51,7 +51,7 @@ export default function PairScreen({ onPaired }: Props) {
       setScanning(false)
       await connect(parsed.url, parsed.token)
     } catch {
-      Alert.alert('Invalid QR', 'This QR code is not from a SyncStay desktop app.', [
+      Alert.alert('Invalid QR', 'This QR code is not from a SyncZen Local desktop app.', [
         { text: 'Try Again', onPress: () => setScanning(true) }
       ])
     }
@@ -97,12 +97,12 @@ export default function PairScreen({ onPaired }: Props) {
       <ScrollView contentContainerStyle={s.page} keyboardShouldPersistTaps="handled">
         {/* Header */}
         <View style={s.header}>
-          <Text style={s.logo}>SyncStay</Text>
+          <Text style={s.logo}>SyncZen Local</Text>
           <Text style={s.tagline}>Mobile Check-In</Text>
         </View>
 
         <Text style={s.title}>📡  Pair with Desktop</Text>
-        <Text style={s.sub}>Connect this device to a running SyncStay desktop app on the same WiFi network.</Text>
+        <Text style={s.sub}>Connect this device to a running SyncZen Local desktop app on the same WiFi network.</Text>
 
         {/* Instructions */}
         <View style={s.card}>

@@ -21,7 +21,7 @@ function setupLogging(): void {
     const logFile = join(logDir, 'app.log')
     
     // Clear and write start header
-    fs.writeFileSync(logFile, `=== SyncStay Start Log ${new Date().toISOString()} ===\n`)
+    fs.writeFileSync(logFile, `=== SyncZen Local Start Log ${new Date().toISOString()} ===\n`)
     
     const writeLog = (type: string, ...args: any[]) => {
       const msg = `[${new Date().toISOString()}] [${type}] ${args.map(x => typeof x === 'object' ? JSON.stringify(x) : x).join(' ')}\n`
@@ -66,15 +66,15 @@ const execAsync = promisify(exec)
 async function ensureFirewallRule(): Promise<void> {
   if (process.platform !== 'win32') return
   try {
-    const { stdout } = await execAsync('netsh advfirewall firewall show rule name="SyncStay-API"').catch(() => ({ stdout: '' }))
-    if (stdout.includes('SyncStay-API')) {
+    const { stdout } = await execAsync('netsh advfirewall firewall show rule name="SyncZen-API"').catch(() => ({ stdout: '' }))
+    if (stdout.includes('SyncZen-API')) {
       console.log('[Firewall] Rule already present — skipping')
       return
     }
     console.log('[Firewall] Rule missing — requesting elevation to add it...')
     // Start-Process with -Verb RunAs triggers Windows UAC elevation dialog
     await execAsync(
-      `powershell -Command "Start-Process -FilePath 'netsh' -ArgumentList 'advfirewall firewall add rule name=SyncStay-API dir=in action=allow protocol=TCP localport=8080' -Verb RunAs -Wait"`
+      `powershell -Command "Start-Process -FilePath 'netsh' -ArgumentList 'advfirewall firewall add rule name=SyncZen-API dir=in action=allow protocol=TCP localport=8080' -Verb RunAs -Wait"`
     )
     console.log('[Firewall] Rule added successfully')
   } catch (err: any) {
@@ -99,7 +99,7 @@ function createWindow(): void {
     minWidth: 960,
     minHeight: 600,
     show: false,
-    title: 'SyncStay',
+    title: 'SyncZen Local',
     icon: nativeImage.createFromPath(getIconPath()),
     backgroundColor: '#080E1A',
     autoHideMenuBar: true,
@@ -129,7 +129,7 @@ function createWindow(): void {
 }
 
 app.whenReady().then(async () => {
-  electronApp.setAppUserModelId('com.syncstay.desktop')
+  electronApp.setAppUserModelId('com.synczen.desktop')
 
   // Allow camera access for photo capture
   session.defaultSession.setPermissionRequestHandler((_wc, permission, callback) => {

@@ -1,6 +1,6 @@
-appId: com.syncstay.desktop
-productName: SyncStay
-copyright: Copyright © 2024 SyncStay
+appId: com.synczen.desktop
+productName: SyncZen Local
+copyright: Copyright © 2026 SyncZen Local
 
 directories:
   buildResources: build
@@ -28,7 +28,7 @@ asarUnpack:
   - resources/**
 
 win:
-  executableName: SyncStay
+  executableName: SyncZenLocal
   icon: build/icon.png
   target:
     - target: nsis
@@ -43,9 +43,9 @@ nsis:
   perMachine: true
   allowElevation: true
   allowToChangeInstallationDirectory: true
-  artifactName: SyncStay-Setup-${version}.exe
-  shortcutName: SyncStay
-  uninstallDisplayName: SyncStay
+  artifactName: SyncZen-Local-Setup-${version}.exe
+  shortcutName: SyncZen Local
+  uninstallDisplayName: SyncZen Local
   createDesktopShortcut: always
   createStartMenuShortcut: true
   runAfterFinish: true

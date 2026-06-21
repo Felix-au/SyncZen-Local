@@ -2,9 +2,9 @@ import { Platform } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const URL_KEY   = 'syncstay_server_url'
-const TOKEN_KEY = 'syncstay_token'
-const QUEUE_KEY = 'syncstay_offline_queue'
+const URL_KEY   = 'synczen_server_url'
+const TOKEN_KEY = 'synczen_token'
+const QUEUE_KEY = 'synczen_offline_queue'
 
 // expo-secure-store is native-only — fall back to AsyncStorage on web
 const secureGet = (key: string) =>
@@ -70,7 +70,7 @@ export async function bumpAttempts(id: string) {
 }
 
 // ── Rooms cache (for offline use) ─────────────────────────────────────────────
-const ROOMS_KEY = 'syncstay_rooms_cache'
+const ROOMS_KEY = 'synczen_rooms_cache'
 
 export async function saveRoomsCache(rooms: any[]) {
   await AsyncStorage.setItem(ROOMS_KEY, JSON.stringify({ rooms, cachedAt: Date.now() }))
