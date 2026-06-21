@@ -8,24 +8,23 @@
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - 🚀 [How to Run](#how-to-run)
   - [Option A: From Source (Development)](#option-a-from-source-development)
-  - [Option B: Standalone Release (Prebuilt binaries)](#option-b-standalone-release-prebuilt-binaries)
-- ⚙️ [Prerequisites & Environment Setup](#prerequisites--environment-setup)
-- 📶 [Local Network & Pairing Configuration](#local-network--pairing-configuration)
-- 🏨 [Usage Walkthrough & Interface Map](#usage-walkthrough--interface-map)
-  - [1. First-Run Setup Workstation](#1-first-run-setup-workstation)
-  - [2. Mobile Device Pairing](#2-mobile-device-pairing)
-  - [3. Completing Guest Check-Ins](#3-completing-guest-check-ins)
-  - [4. Processing Check-Outs](#4-processing-check-outs)
+  - [Option B: Standalone Release (Prebuilt binaries)](#option-b-standalone-release)
+- ⚙️ [Prerequisites & Environment Setup](#prerequisites-and-environment-setup)
+- 📶 [Local Network & Pairing Configuration](#local-network-and-pairing-configuration)
+- 🏨 [Usage Walkthrough & Interface Map](#usage-walkthrough-and-interface-map)
+  - [1. First-Run Setup Workstation](#first-run-setup-workstation)
+  - [2. Mobile Device Pairing](#mobile-device-pairing)
+  - [3. Completing Guest Check-Ins](#completing-guest-check-ins)
+  - [4. Processing Check-Outs](#processing-check-outs)
 - 📁 [Codebase Directory Checklist](#codebase-directory-checklist)
-- 👤 [Author](#author)
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 ### Option A: From Source (Development)
 
@@ -51,7 +50,7 @@ npx expo start --clear
 
 ---
 
-### Option B: Standalone Release (Prebuilt binaries)
+### Option B: Standalone Release
 
 For quick deployment without configuring a development environment, both the desktop executable and mobile APK are released on GitHub.
 
@@ -76,7 +75,7 @@ For quick deployment without configuring a development environment, both the des
 
 ---
 
-## ⚙️ Prerequisites & Environment Setup
+## Prerequisites and Environment Setup
 
 These requirements are only necessary if you are running from source or compiling binaries locally:
 
@@ -89,7 +88,7 @@ These requirements are only necessary if you are running from source or compilin
 
 ---
 
-## 📶 Local Network & Pairing Configuration
+## Local Network and Pairing Configuration
 
 SyncZen Local routes all requests over your local WiFi network.
 
@@ -107,20 +106,20 @@ SyncZen Local routes all requests over your local WiFi network.
 
 ---
 
-## 🏨 Usage Walkthrough & Interface Map
+## Usage Walkthrough and Interface Map
 
-### 1. First-Run Setup Workstation
+### First-Run Setup Workstation
 *   On the first launch of the desktop application, a **First-Run Setup** screen appears.
 *   The application automatically initializes the SQLite schema, registers a PowerShell firewall rule for port 8080, creates a secure pairing token, and starts the API host.
 *   Once finished, you will be redirected to the **Dashboard** displaying live occupancy gauges, guest counts, and recent bookings.
 
-### 2. Mobile Device Pairing
+### Mobile Device Pairing
 1.  On the desktop console, click the **Pair** tab in the sidebar. This displays a connection QR code, the local IP address, and the security token.
 2.  Open the paired **SyncZen Local** app on your Android device.
 3.  Tap **Scan QR Code** (or select manual entry) and point the camera at the desktop screen.
 4.  Once paired successfully, the connection status indicator at the top of the mobile home screen will turn green (**Server Online**).
 
-### 3. Completing Guest Check-Ins
+### Completing Guest Check-Ins
 1.  On the mobile app home screen, tap **Start Check-In**.
 2.  Select the **Party Size** (number of incoming guests).
 3.  Fill in details for each guest (Name, mobile, age, sex). The first guest is marked as the primary contact.
@@ -129,13 +128,13 @@ SyncZen Local routes all requests over your local WiFi network.
 6.  Select an **Available Room**, set the number of nights, write optional notes, and tap **Review & Confirm**.
 7.  If the server is offline, the check-in is buffered locally in AsyncStorage. It will auto-sync once the server is reachable.
 
-### 4. Processing Check-Outs
+### Processing Check-Outs
 *   **Manual Check-Out:** In the desktop app, go to **Bookings**, locate the booking reference, and click **Check-out**. This updates the booking status to `checked_out` and changes the associated rooms back to `available`.
 *   **Auto-Checkout Failsafe:** Every time the desktop application boots, it automatically identifies bookings whose check-out dates have passed and updates them to free up rooms.
 
 ---
 
-## 📁 Codebase Directory Checklist
+## Codebase Directory Checklist
 
 Use this checklist table to locate key components and logic files in the repository:
 
@@ -155,15 +154,6 @@ Use this checklist table to locate key components and logic files in the reposit
 | **Sync Manager** | `mobile/src/sync.ts` | Handles offline check-in serialization, image pre-uploads, and retry synchronization loops. |
 | **Pairing Screen** | `mobile/src/screens/PairScreen.tsx` | Expo camera QR scanner and manual connection input forms. |
 | **Registration Wizard** | `mobile/src/screens/CheckInWizard.tsx` | Segmented guest form flow, profile widgets, and room selectors. |
-
----
-
-## 👤 Author
-
-**Felix-au** (Harshit Soni)
-
-- 🔗 GitHub: [github.com/Felix-au](https://github.com/Felix-au)
-- 📧 Email: [harshit.soni.23cse@bmu.edu.in](mailto:harshit.soni.23cse@bmu.edu.in)
 
 ---
 

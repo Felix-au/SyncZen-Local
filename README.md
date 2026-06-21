@@ -17,7 +17,7 @@
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - 🔍 [Overview](#overview)
 - 🎯 [Why SyncZen Local?](#why-synczen-local)
@@ -34,7 +34,7 @@
 
 ---
 
-## 🔍 Overview
+## Overview
 
 **SyncZen Local** is a secure, local-first guest registration and data management system for hospitality teams. It provides a central administrative dashboard (developed as an Electron desktop workstation) and companion mobile check-in assistant devices (React Native/Expo). 
 
@@ -42,7 +42,7 @@ By hosting its own API server and leveraging in-memory WebAssembly SQLite, SyncZ
 
 ---
 
-## 🎯 Why SyncZen Local?
+## Why SyncZen Local
 
 > **Traditional Property Management Systems (PMS) depend on cloud databases and internet uptime. SyncZen Local keeps your front desk moving, even when the internet goes down. 🌐**
 
@@ -56,7 +56,7 @@ By hosting its own API server and leveraging in-memory WebAssembly SQLite, SyncZ
 
 ---
 
-## ✨ Features
+## Features
 
 ### 🖥️ Desktop Workstation
 *   **Central Administration:** Real-time stats, rooms manager, and guest booking logs.
@@ -78,7 +78,7 @@ By hosting its own API server and leveraging in-memory WebAssembly SQLite, SyncZ
 
 ---
 
-## 💾 Database Schema and Storage
+## Database Schema and Storage
 
 ### Schema SQL DDL
 
@@ -150,7 +150,7 @@ All persistent configs and files are saved under the Electron application's `use
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```mermaid
 graph TD
@@ -230,7 +230,7 @@ graph TD
 
 ---
 
-## 🔄 Pipeline Flow and Processing Overview
+## Pipeline Flow and Processing Overview
 
 ```mermaid
 flowchart TD
@@ -291,7 +291,7 @@ WASM memory database exported to synczen.db
 
 ---
 
-## 🎨 Visual UI Guides
+## Visual UI Guides
 
 ### Desktop Workstation Screens
 
@@ -313,7 +313,7 @@ WASM memory database exported to synczen.db
 
 ---
 
-## 🔌 API Reference
+## API Reference
 
 Every endpoint (except `/api/health`) requires authentication: `Authorization: Bearer <Token>`.
 
@@ -363,7 +363,7 @@ Every endpoint (except `/api/health`) requires authentication: `Authorization: B
 
 ---
 
-## 🚀 Build Run and Deployment Options
+## Build Run and Deployment Options
 
 ### Running from Source (Development)
 
@@ -405,7 +405,7 @@ The output file is located at `mobile/android/app/build/outputs/apk/release/app-
 
 ---
 
-## 📁 Project Structure and Key Components
+## Project Structure and Key Components
 
 ```text
 Hotel-Check-In/
@@ -436,7 +436,7 @@ Hotel-Check-In/
 | `desktop/electron/main.ts` | Desktop Main | Manages window lifecycle, IPC handlers, firewall commands, and SQLite sync. |
 | `desktop/electron/server/api.ts` | Desktop Main | Boots Express server, handles LAN IP resolution, and authorizes bearer tokens. |
 | `desktop/electron/server/db.ts` | Desktop Main | Initializes WASM `sql.js`, handles schemas, migrations, and database exports. |
-| `desktop/src/App.tsx` | Desktop Renderer | Implements layouts, sidebar nav, page routing, and boot verification. |
+| `desktop/src/App.tsx` | Desktop Renderer | Implements layouts, sidebar navigation, and page router. |
 | `mobile/App.tsx` | Mobile Core | Manages AsyncStorage queues, secure token caches, and room availability cache. |
 | `mobile/src/sync.ts` | Mobile Core | Wires check-in pipeline, triggers image uploads, and handles background sync loops. |
 | `mobile/src/screens/HomeScreen.tsx` | Mobile UI | Displays server connection indicators and manages the synchronization interface. |
@@ -444,7 +444,7 @@ Hotel-Check-In/
 
 ---
 
-## ⚠️ Troubleshooting and Failsafes
+## Troubleshooting and Failsafes
 
 ### Common Issues
 
@@ -462,7 +462,7 @@ Hotel-Check-In/
 
 ---
 
-## 👤 Author
+## Author
 
 **Felix-au** (Harshit Soni)
 
