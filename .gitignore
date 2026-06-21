@@ -21,6 +21,7 @@ build/
 out/
 obj/
 release/
+releases/
 *.msi
 *.zip
 *.tar.gz
